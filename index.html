@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Resultados</title>
+    <style>
+        body { font-family: monospace; background-color: #f4f4f9; padding: 20px; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        pre { background: #eee; padding: 15px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resultados del Pipeline</h2>
+        <pre id="contenido">Cargando resultados desde la instancia EC2...</pre>
+    </div>
+
+    <script>
+        // Reemplaza <IP-PUBLICA-EC2> con la IP o DNS público de tu instancia cuando la crees
+        const url_ec2 = 'http://<IP-PUBLICA-EC2>/resultado.txt';
+        
+        fetch(url_ec2)
+            .then(response => {
+                if (!response.ok) throw new Error('Error al conectar con la instancia EC2');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('contenido').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('contenido').textContent = error;
+            });
+    </script>
+</body>
+</html>
