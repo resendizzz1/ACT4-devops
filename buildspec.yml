@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Ejecutando el script de procesamiento de datos..."
+      - python3 procesar.py
+  post_build:
+    commands:
+      - echo "Validando que el archivo resultado.txt se generó correctamente..."
+      - test -f resultado.txt || exit 1
+      - echo "Validación exitosa."
+
+artifacts:
+  files:
+    - '**/*'
